@@ -9,6 +9,8 @@ public class DatabaseContract {
 
     public static final class SubscriptionInfoEntry implements BaseColumns {
 
+
+        // New table plus table names
         public static final String TABLE_NAME = "subscriptions";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_DESCRIPTION = "description";
@@ -17,10 +19,10 @@ public class DatabaseContract {
 
         public static final String INDEX1 = TABLE_NAME + "_index1";
         public static final String SQL_CREATE_INDEX1 = "CREATE INDEX " + INDEX1 + " ON " +
-                                                        TABLE_NAME + "(" + COLUMN_NAME + ")";
+                TABLE_NAME + "(" + COLUMN_NAME + ")";
 
         public static final String SQL_CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" + _ID + " INTEGER PRIMARY KEY, "
-                                                        + COLUMN_NAME + " TEXT NOT NULL, " + COLUMN_DESCRIPTION + " TEXT"
-                                                        + COLUMN_COST + " INTEGER, " + COLUMN_DATE + " DATE";
+                + COLUMN_NAME + " TEXT NOT NULL, " + COLUMN_DESCRIPTION + " TEXT, "
+                + COLUMN_COST + " DOUBLE, " + COLUMN_DATE + " DATE)";
     }
 }

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Sus</string>
+    <string name="subscription_name_hint">Subscription Name</string>
+    <string name="subscription_description_hint">Subscription description</string>
+    <string name="subscription_cost_hint">Subscription Cost</string>
+    <string name="subscription_dateFormat_hint">wed, Mar 3, \'21</string>
+    <string name="button_text">Save</string>
+    <string name="string_button_text">Save</string>
+    <string name="close">Close</string>
+    <string name="add_a_new_subscription">Tap to add a new subscription</string>
+    <string name="todo">arrow pointing to the add button</string>
+    <string name="tap_subscription_to_edit">Tap a subscription to edit it</string>
+    <string name="subscription_arrow_description">Arrow pointing to subscription</string>
 </resources>

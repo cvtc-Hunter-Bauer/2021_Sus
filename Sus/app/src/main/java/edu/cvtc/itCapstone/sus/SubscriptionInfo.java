@@ -8,17 +8,17 @@ public class SubscriptionInfo implements Parcelable {
     private String mName;
     private String mDescription;
     private int mId;
-    private int mCost;
+    private double mCost;
     private String mDate;
 
-    public SubscriptionInfo(String name, String description, Integer cost, String date) {
+    public SubscriptionInfo(String name, String description, double cost, String date) {
         mName = name;
         mDescription = description;
         mCost = cost;
         mDate = date;
     }
 
-    public SubscriptionInfo(int id, String name, String description, Integer cost, String date) {
+    public SubscriptionInfo(int id, String name, String description, double cost, String date) {
         mId = id;
         mName = name;
         mDescription = description;
@@ -46,11 +46,11 @@ public class SubscriptionInfo implements Parcelable {
         return mId;
     }
 
-    public int getCost() {
+    public double getCost() {
         return mCost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(double cost) {
         mCost = cost;
     }
 
@@ -59,7 +59,7 @@ public class SubscriptionInfo implements Parcelable {
     }
 
     public void setDate(String date) {
-       mDate = date;
+        mDate = date;
     }
 
     public String getCompareKey() {
@@ -98,7 +98,7 @@ public class SubscriptionInfo implements Parcelable {
         dest.writeString(mName);
         dest.writeString(mDescription);
         dest.writeInt(mId);
-        dest.writeInt(mCost);
+        dest.writeDouble(mCost);
         dest.writeString(mDate);
     }
 
