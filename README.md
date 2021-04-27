@@ -1,6 +1,6 @@
 # 2021_Sus
 
-Install Sus prject on Windows
+Install Sus project on Windows
 
 1. Download zip file and extract.
 2. Open Android Studio (can be downloaded at https://developer.android.com/studio).
