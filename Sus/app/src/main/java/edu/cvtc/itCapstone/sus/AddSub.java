@@ -25,7 +25,6 @@ import edu.cvtc.itCapstone.sus.DatabaseContract.SubscriptionInfoEntry;
 
 public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-
     public static final String SUBSCRIPTION_ID = "edu.cvtc.itCapstone.sus.SUBSCRIPTION_ID";
     public static final String ORIGINAL_SUBSCRIPTION_NAME = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_NAME";
     public static final String  ORIGINAL_SUBSCRIPTION_DESCRIPTION = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_DESCRIPTION";
