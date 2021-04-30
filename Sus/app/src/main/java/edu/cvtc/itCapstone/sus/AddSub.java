@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import edu.cvtc.itCapstone.sus.DatabaseContract.SubscriptionInfoEntry;
 
@@ -80,7 +81,9 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
 
                 @Override
                 public void onClick(View v) {
-
+                    if(mName.getText().toString().isEmpty()|| mDescription.getText().toString().isEmpty()||mCost.getText().toString().isEmpty()||mDate.getText().toString().isEmpty()){
+                        Toast.makeText(AddSub.this, "Please make sure the fields are filled", Toast.LENGTH_SHORT).show();
+                    }else{
                     if (savedInstanceState == null) {
 
                         saveOriginalSub();
@@ -88,6 +91,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
                         restoreOriginalSub(savedInstanceState);
                     }
                     startActivity(new Intent(AddSub.this, MainActivity.class));
+                }
                 }
 
             });
