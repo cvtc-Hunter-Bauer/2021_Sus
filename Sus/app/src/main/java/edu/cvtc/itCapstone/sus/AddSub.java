@@ -13,9 +13,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import edu.cvtc.itCapstone.sus.DatabaseContract.SubscriptionInfoEntry;
 
@@ -52,7 +56,12 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
     private Button mButton;
     private Cursor mCursor;
     private boolean mNewSub;
-
+    private boolean mIsCancelling;
+    @Override
+    protected void onDestroy() {
+        mDbOpenHelper.close();
+        super.onDestroy();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,14 +69,6 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
 
         mDbOpenHelper = new SubscriptionOpenHelper(this);
         mButton = findViewById(R.id.button_save);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                readSateValues();
-            }
-        });
-
-
 
         if (savedInstanceState == null){
 
@@ -81,22 +82,109 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         mCost = findViewById(R.id.text_cost);
         mDate = findViewById(R.id.text_date);
 
+            mButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if(mName.getText().toString().isEmpty()|| mDescription.getText().toString().isEmpty()||mCost.getText().toString().isEmpty()||mDate.getText().toString().isEmpty()){
+                        Toast.makeText(AddSub.this, "Please make sure the fields are filled", Toast.LENGTH_SHORT).show();
+                    }else{
+                    if (savedInstanceState == null) {
+
+                        saveOriginalSub();
+                    } else {
+                        restoreOriginalSub(savedInstanceState);
+                    }
+                    startActivity(new Intent(AddSub.this, MainActivity.class));
+                }
+                }
+
+            });
+
+
         if(!mNewSub) {
             LoaderManager.getInstance(this).initLoader(LOADER_SUB, null, this);
         }
     }
 
+    // upper right back button will work as back and cancel
+    @Override
+    public void onBackPressed() {
+        // do nothing.
+    }
 
-private void saveSub(){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_sub, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_cancel) {
+            mIsCancelling = true;
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Did the user cancel the process?
+        if (mIsCancelling) {
+            // Is this a new course?
+            if (mNewSub) {
+                // Delete the new course.
+                deleteSubscriptionFromDatabase();
+            } else {
+                // Put the original values on the screen.
+                storePreviousSubValues();
+            }
+        } else {
+            // Save the data when leaving the activity.
+            saveSub();
+        }
+    }
+
+    private void deleteSubscriptionFromDatabase() {
+        // Create selection criteria
+        final String selection = SubscriptionInfoEntry._ID + " = ?";
+        final String[] selectionArgs = {Integer.toString(mSubId)};
+        AsyncTaskLoader<String> task = new AsyncTaskLoader<String>(this) {
+            @Nullable
+            @Override
+            public String loadInBackground() {
+                // Get connection to the database. Use the writable
+                // method since we are changing the data.
+                SQLiteDatabase db = mDbOpenHelper.getWritableDatabase();
+                // Call the delete method
+
+
+                db.delete(SubscriptionInfoEntry.TABLE_NAME, selection, selectionArgs);
+                return null;
+            }
+        };
+        task.loadInBackground();
+    }
+
+    private void saveSub(){
         // getting the input from the edit texts
-        String subName = mName.getText().toString();
-        String subDescription = mDescription.getText().toString();
-        //TODO might need to parse to double
-        double subCost = Double.parseDouble(mCost.getText().toString());
-        String subDate = mDate.getText().toString();
-        // method to save to the db.
-        saveSubscription(subName, subDescription, subCost, subDate);
-}
+
+           String subName = mName.getText().toString();
+           String subDescription = mDescription.getText().toString();
+           //TODO might need to parse to double
+           double subCost = Double.parseDouble(mCost.getText().toString());
+           String subDate = mDate.getText().toString();
+           // method to save to the db.
+           saveSubscription(subName, subDescription, subCost, subDate);
+
+    }
     private void saveSubscription(String name, String description, double cost, String date) {
         // Create selection criteria
         final String selection = SubscriptionInfoEntry._ID + " = ?";
@@ -125,18 +213,19 @@ private void saveSub(){
     private void showSub(){
 
         // gets the values and inserts them into the layout based on sub that is clicked
-        String subName = mCursor.getString(mSubNamePosition);
-        String subDescription = mCursor.getString(mSubDescriptionPosition);
-        String subCost = mCursor.getString(mSubCostPosition);
-        String subDate = mCursor.getString(mSubDatePosition);
+        if(mSubId != 0) {
+            String subName = mCursor.getString(mSubNamePosition);
+            String subDescription = mCursor.getString(mSubDescriptionPosition);
+            String subCost = mCursor.getString(mSubCostPosition);
+            String subDate = mCursor.getString(mSubDatePosition);
 
 
-        // fills the edit texts in the layout
-        mName.setText(subName);
-        mDescription.setText(subDescription);
-        mCost.setText(subCost);
-        mDate.setText(subDate);
-
+            // fills the edit texts in the layout
+            mName.setText(subName);
+            mDescription.setText(subDescription);
+            mCost.setText(subCost);
+            mDate.setText(subDate);
+        }
 
 
     }
@@ -171,27 +260,32 @@ private void saveSub(){
 
         mNewSub = mSubId == ID_NOT_SET;
 
-        if(mNewSub) {
-
-            createNewSub();
-        }
+        if(mNewSub) createNewSub();
     }
 
     private void createNewSub() {
-        mName = findViewById(R.id.text_name);
-        mDescription = findViewById(R.id.text_description);
-        mCost = findViewById(R.id.text_cost);
-        mDate = findViewById(R.id.text_date);
+      //  mName = findViewById(R.id.text_name);
+      //  mDescription = findViewById(R.id.text_description);
+      //  mCost = findViewById(R.id.text_cost);
+      //  mDate = findViewById(R.id.text_date);
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(SubscriptionInfoEntry.COLUMN_NAME, mName.getText().toString());
-        contentValues.put(SubscriptionInfoEntry.COLUMN_DESCRIPTION, mDescription.getText().toString());
-        contentValues.put(SubscriptionInfoEntry.COLUMN_COST, Double.parseDouble(mCost.getText().toString()));
-        contentValues.put(SubscriptionInfoEntry.COLUMN_DATE, mDate.getText().toString());
+        contentValues.put(SubscriptionInfoEntry.COLUMN_NAME, "");
+        contentValues.put(SubscriptionInfoEntry.COLUMN_DESCRIPTION, "");
+        contentValues.put(SubscriptionInfoEntry.COLUMN_COST, 0.0);
+        contentValues.put(SubscriptionInfoEntry.COLUMN_DATE, "");
 
         SQLiteDatabase db = mDbOpenHelper.getWritableDatabase();
 
         mSubId = (int) db.insert(SubscriptionInfoEntry.TABLE_NAME, null, contentValues);
+    }
+
+    private void storePreviousSubValues() {
+        mSub.setName(mOriginalSubName);
+        mSub.setDescription(mOriginalSubDesc);
+        mSub.setCost(mOriginalSubCost);
+        mSub.setDate(mOriginalSubDate);
+
     }
 
     @NonNull
@@ -229,11 +323,36 @@ private void saveSub(){
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        if (loader.getId() == LOADER_SUB) {
+            loadFinishedCourses(data);
+        }
+    }
 
+    private void loadFinishedCourses(Cursor data) {
+        // Populate our member cursor with the data
+        mCursor = data;
+        // Get the positions of the fields in the cursor so that
+        // we are able to retrieve them into our layout.
+        mSubNamePosition = mCursor.getColumnIndex(SubscriptionInfoEntry.COLUMN_NAME);
+        mSubDescriptionPosition = mCursor.getColumnIndex(SubscriptionInfoEntry.COLUMN_DESCRIPTION);
+        mSubCostPosition = mCursor.getColumnIndex(SubscriptionInfoEntry.COLUMN_COST);
+        mSubDatePosition = mCursor.getColumnIndex(SubscriptionInfoEntry.COLUMN_DATE);
+
+        // Make sure that we have moved to the correct record.
+        // The cursor will not have populated any of the
+        // fields until we move it.
+        mCursor.moveToNext();
+        // Call the method to display the course.
+        showSub();
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-
+        if (loader.getId() == LOADER_SUB) {
+            // If the sub is not null, close it
+            if (mCursor != null) {
+                mCursor.close();
+            }
+        }
     }
 }

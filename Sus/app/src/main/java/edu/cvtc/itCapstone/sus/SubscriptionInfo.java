@@ -59,7 +59,7 @@ public class SubscriptionInfo implements Parcelable {
     }
 
     public void setDate(String date) {
-       mDate = date;
+        mDate = date;
     }
 
     public String getCompareKey() {

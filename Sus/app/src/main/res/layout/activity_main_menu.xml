@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/title_text"
+        android:id="@id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Supervise ur Subscriptions"
@@ -116,11 +116,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="casual"
-        android:text="$99"
-        android:textSize="20sp"
+        android:text="$99.00"
         android:textColor="#F08E49"
-        app:layout_constraintTop_toBottomOf="@id/spending_text"
-        app:layout_constraintLeft_toRightOf="@id/monthly_text" />
+        android:textSize="20sp"
+        app:layout_constraintLeft_toRightOf="@id/monthly_text"
+        app:layout_constraintTop_toBottomOf="@id/spending_text" />
 
     <TextView
         android:id="@+id/half_year_text"
@@ -141,11 +141,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="casual"
-        android:text="$99"
-        android:textSize="20sp"
+        android:text="$99.00"
         android:textColor="#F08E49"
-        app:layout_constraintTop_toBottomOf="@id/monthly_text"
-        app:layout_constraintLeft_toRightOf="@id/half_year_text" />
+        android:textSize="20sp"
+        app:layout_constraintLeft_toRightOf="@id/half_year_text"
+        app:layout_constraintTop_toBottomOf="@id/monthly_text" />
 
     <TextView
         android:id="@+id/yearly_text"
@@ -166,39 +166,39 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="casual"
-        android:text="$99"
-        android:textSize="20sp"
+        android:text="$99.00"
         android:textColor="#F08E49"
-        app:layout_constraintTop_toBottomOf="@id/half_year_text"
-        app:layout_constraintLeft_toRightOf="@id/yearly_text" />
+        android:textSize="20sp"
+        app:layout_constraintLeft_toRightOf="@id/yearly_text"
+        app:layout_constraintTop_toBottomOf="@id/half_year_text" />
 
 
 
-<!--    <TextView-->
-<!--        android:id="@+id/number_of_text"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:fontFamily="monospace"-->
-<!--        android:text="Number of Subscriptions: "-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/monthly_text"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        tools:layout_editor_absoluteY="192dp" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/number_of_text"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:fontFamily="monospace"-->
+    <!--        android:text="Number of Subscriptions: "-->
+    <!--        android:textSize="20sp"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/monthly_text"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        tools:layout_editor_absoluteY="192dp" />-->
 
-<!--    <TextView-->
-<!--        android:id="@+id/subscription_amount_text"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:fontFamily="casual"-->
-<!--        android:text="11"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textColor="#F08E49"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/monthly_text"-->
-<!--        app:layout_constraintLeft_toRightOf="@id/number_of_text"-->
-<!--        tools:layout_editor_absoluteY="192dp" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/subscription_amount_text"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:fontFamily="casual"-->
+    <!--        android:text="11"-->
+    <!--        android:textSize="20sp"-->
+    <!--        android:textColor="#F08E49"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/monthly_text"-->
+    <!--        app:layout_constraintLeft_toRightOf="@id/number_of_text"-->
+    <!--        tools:layout_editor_absoluteY="192dp" />-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
