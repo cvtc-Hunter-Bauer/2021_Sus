@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Sus">
+
         <activity android:name=".MainMenu"></activity>
         <activity android:name=".AddSub" />
         <activity android:name=".MainActivity">

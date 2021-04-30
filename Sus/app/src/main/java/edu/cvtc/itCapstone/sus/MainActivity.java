@@ -2,6 +2,7 @@ package edu.cvtc.itCapstone.sus;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.loader.app.LoaderManager;
@@ -16,12 +17,16 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+
 import android.view.Menu;
+
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import edu.cvtc.itCapstone.sus.DatabaseContract.SubscriptionInfoEntry;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -38,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     // Boolean to check if the 'onCreateLoader' method has run
     private boolean mIsCreated = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +134,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // we re-query the database each time the activity is
         // loaded in the app.
         LoaderManager.getInstance(this).restartLoader(LOADER_SUBS, null, this);
+
     }
+
 
     public void closeTutorial(View view) {
         View overlayPageOne = findViewById(R.id.OverlayPageOne);
