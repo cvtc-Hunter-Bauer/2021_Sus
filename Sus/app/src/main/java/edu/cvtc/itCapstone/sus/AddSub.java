@@ -87,6 +87,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
                     } else {
                         restoreOriginalSub(savedInstanceState);
                     }
+                    startActivity(new Intent(AddSub.this, MainActivity.class));
                 }
 
             });
