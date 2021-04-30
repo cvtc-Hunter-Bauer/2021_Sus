@@ -11,4 +11,6 @@
     <string name="todo">arrow pointing to the add button</string>
     <string name="tap_subscription_to_edit">Tap a subscription to edit it</string>
     <string name="subscription_arrow_description">Arrow pointing to subscription</string>
+    <string name="menu_cancel_text">cancel</string>
+    <string name="action_settings">settings</string>
 </resources>

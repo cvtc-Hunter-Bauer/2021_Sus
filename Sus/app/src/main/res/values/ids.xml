@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <item name="title_text" type="id"></item>
+    <item name="header_text" type="id"></item>
+    <item name="upcoming_text" type="id"></item>
+    <item name="subscription_text" type="id"></item>
+    <item name="upcoming_price_text" type="id"></item>
+    <item name="upcoming_date_text" type="id"></item>
+    <item name="spending_text" type="id"></item>
+    <item name="monthly_text" type="id"></item>
+    <item name="monthly_dollar_text" type="id"></item>
+    <item name="half_year_text" type="id"></item>
+    <item name="half_year_dollar_text" type="id"></item>
+    <item name="yearly_text" type="id"></item>
+    <item name="yearly_dollar_text" type="id"></item>
+</resources>
