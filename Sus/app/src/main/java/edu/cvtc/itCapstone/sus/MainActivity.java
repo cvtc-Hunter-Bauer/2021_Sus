@@ -64,6 +64,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_upcoming_payments:
+                    Intent intent = new Intent(MainActivity.this, MainMenu.class);
+                    MainActivity.this.startActivity(intent);
+                    break;
+                case R.id.action_subscriptions:
+
+                    break;
+                case R.id.action_graph:
+                    //TODO:Have a Intent to the graph activity and remove Toast
+                    //Intent intent = new Intent(MainActivity.this, Graph.class);
+                    //MainActivity.this.startActivity(intent);
+                    Toast.makeText(MainActivity.this, "Graph", Toast.LENGTH_SHORT).show();
+                    break;                }
+            return true;
+        });
 
         SharedPreferences sp = getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
         if (sp.getBoolean("firstStart", true)) {

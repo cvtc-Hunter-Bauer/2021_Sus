@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_upcoming_payments"
+        android:enabled="true"
+        android:icon="@drawable/ic_payments"
+        android:title="Upcoming Payments"/>
+    <item
+        android:id="@+id/action_subscriptions"
+        android:enabled="true"
+        android:icon="@drawable/ic_sub_list"
+        android:title="Subscriptions"/>
+    <item
+        android:id="@+id/action_graph"
+        android:enabled="true"
+        android:icon="@drawable/ic_graph"
+        android:title="Graph"/>
+</menu>

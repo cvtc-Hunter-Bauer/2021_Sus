@@ -6,10 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.AppCompat.Light">
+        android:theme="@style/Theme.AppCompat.Light"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/include">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -17,10 +21,21 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@color/cardview_light_background" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_sub" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_sub"
+        android:layout_width="416dp"
+        android:layout_height="641dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -29,13 +44,30 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
         android:layout_marginEnd="355dp"
-        android:layout_marginBottom="675dp"
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/design_default_color_primary"
         app:elevation="6dp"
         app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/add_subscription" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/bottom_navigation_menu" />
+    </LinearLayout>
+
 
     <RelativeLayout
         android:id="@+id/OverlayPageOne"
@@ -44,7 +76,12 @@
         android:alpha=".6"
         android:background="@color/black"
         android:textAlignment="center"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/textView2"
@@ -52,8 +89,7 @@
             android:layout_height="45dp"
             android:layout_above="@+id/imageView2"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/add_a_new_subscription"
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -61,12 +97,12 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="100dp"
+            android:layout_width="113dp"
             android:layout_height="100dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="70dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="140dp"
             android:contentDescription="@string/todo"
             android:rotation="70"
             app:srcCompat="@drawable/ic_arrow" />
@@ -80,7 +116,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="150dp"
             android:layout_marginRight="150dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="80dp"
             android:onClick="closeTutorial"
             android:text="@string/close" />
 
@@ -108,7 +144,5 @@
             android:contentDescription="@string/subscription_arrow_description"
             android:rotation="-50"
             app:srcCompat="@drawable/ic_arrow" />
-
     </RelativeLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

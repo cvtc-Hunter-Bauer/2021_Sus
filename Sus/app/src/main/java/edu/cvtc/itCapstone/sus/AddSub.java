@@ -68,6 +68,14 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
 
         mDbOpenHelper = new SubscriptionOpenHelper(this);
         mButton = findViewById(R.id.button_save);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                readSateValues();
+            }
+        });
+
+
 
         if (savedInstanceState == null){
 
@@ -263,16 +271,17 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
     }
 
     private void createNewSub() {
-      //  mName = findViewById(R.id.text_name);
-      //  mDescription = findViewById(R.id.text_description);
-      //  mCost = findViewById(R.id.text_cost);
-      //  mDate = findViewById(R.id.text_date);
+
+        mName = findViewById(R.id.text_name);
+        mDescription = findViewById(R.id.text_description);
+        mCost = findViewById(R.id.text_cost);
+        mDate = findViewById(R.id.text_date);
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put(SubscriptionInfoEntry.COLUMN_NAME, "");
-        contentValues.put(SubscriptionInfoEntry.COLUMN_DESCRIPTION, "");
-        contentValues.put(SubscriptionInfoEntry.COLUMN_COST, 0.0);
-        contentValues.put(SubscriptionInfoEntry.COLUMN_DATE, "");
+        contentValues.put(SubscriptionInfoEntry.COLUMN_NAME, mName.getText().toString());
+        contentValues.put(SubscriptionInfoEntry.COLUMN_DESCRIPTION, mDescription.getText().toString());
+        contentValues.put(SubscriptionInfoEntry.COLUMN_COST, Double.parseDouble(mCost.getText().toString()));
+        contentValues.put(SubscriptionInfoEntry.COLUMN_DATE, mDate.getText().toString());
 
         SQLiteDatabase db = mDbOpenHelper.getWritableDatabase();
 
