@@ -28,9 +28,9 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
 
     public static final String SUBSCRIPTION_ID = "edu.cvtc.itCapstone.sus.SUBSCRIPTION_ID";
     public static final String ORIGINAL_SUBSCRIPTION_NAME = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_NAME";
-    public static final String  ORIGINAL_SUBSCRIPTION_DESCRIPTION = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_DESCRIPTION";
-    public static final String  ORIGINAL_SUBSCRIPTION_COST = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_COST";
-    public static final String  ORIGINAL_SUBSCRIPTION_DATE = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_DATE";
+    public static final String ORIGINAL_SUBSCRIPTION_DESCRIPTION = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_DESCRIPTION";
+    public static final String ORIGINAL_SUBSCRIPTION_COST = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_COST";
+    public static final String ORIGINAL_SUBSCRIPTION_DATE = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_DATE";
 
     public static final int ID_NOT_SET = -1;
     public static final int LOADER_SUB = 0;
@@ -57,11 +57,13 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
     private Cursor mCursor;
     private boolean mNewSub;
     private boolean mIsCancelling;
+
     @Override
     protected void onDestroy() {
         mDbOpenHelper.close();
         super.onDestroy();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,13 +79,13 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         mCost = findViewById(R.id.text_cost);
         mDate = findViewById(R.id.text_date);
 
-            mButton.setOnClickListener(new View.OnClickListener() {
+        mButton.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                    if(mName.getText().toString().isEmpty()|| mDescription.getText().toString().isEmpty()||mCost.getText().toString().isEmpty()||mDate.getText().toString().isEmpty()){
-                        Toast.makeText(AddSub.this, "Please make sure the fields are filled", Toast.LENGTH_SHORT).show();
-                    }else{
+            @Override
+            public void onClick(View v) {
+                if (mName.getText().toString().isEmpty() || mDescription.getText().toString().isEmpty() || mCost.getText().toString().isEmpty() || mDate.getText().toString().isEmpty()) {
+                    Toast.makeText(AddSub.this, "Please make sure the fields are filled", Toast.LENGTH_SHORT).show();
+                } else {
                     if (savedInstanceState == null) {
 
                         saveOriginalSub();
@@ -92,12 +94,12 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
                     }
                     startActivity(new Intent(AddSub.this, MainActivity.class));
                 }
-                }
+            }
 
-            });
+        });
 
 
-        if(!mNewSub) {
+        if (!mNewSub) {
             LoaderManager.getInstance(this).initLoader(LOADER_SUB, null, this);
         }
     }
@@ -114,6 +116,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         getMenuInflater().inflate(R.menu.menu_sub, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -168,18 +171,19 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         task.loadInBackground();
     }
 
-    private void saveSub(){
+    private void saveSub() {
         // getting the input from the edit texts
 
-           String subName = mName.getText().toString();
-           String subDescription = mDescription.getText().toString();
-           //TODO might need to parse to double
-           double subCost = Double.parseDouble(mCost.getText().toString());
-           String subDate = mDate.getText().toString();
-           // method to save to the db.
-           saveSubscription(subName, subDescription, subCost, subDate);
+        String subName = mName.getText().toString();
+        String subDescription = mDescription.getText().toString();
+        //TODO might need to parse to double
+        double subCost = Double.parseDouble(mCost.getText().toString());
+        String subDate = mDate.getText().toString();
+        // method to save to the db.
+        saveSubscription(subName, subDescription, subCost, subDate);
 
     }
+
     private void saveSubscription(String name, String description, double cost, String date) {
         // Create selection criteria
         final String selection = SubscriptionInfoEntry._ID + " = ?";
@@ -205,10 +209,10 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         task.loadInBackground();
     }
 
-    private void showSub(){
+    private void showSub() {
 
         // gets the values and inserts them into the layout based on sub that is clicked
-        if(mSubId != 0) {
+        if (mSubId != 0) {
             String subName = mCursor.getString(mSubNamePosition);
             String subDescription = mCursor.getString(mSubDescriptionPosition);
             String subCost = mCursor.getString(mSubCostPosition);
@@ -239,7 +243,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
 
     private void saveOriginalSub() {
 
-        if(!mNewSub) {
+        if (!mNewSub) {
             mOriginalSubName = mSub.getName();
             mOriginalSubDesc = mSub.getDescription();
             mOriginalSubCost = mSub.getCost();
@@ -255,14 +259,14 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
 
         mNewSub = mSubId == ID_NOT_SET;
 
-        if(mNewSub) createNewSub();
+        if (mNewSub) createNewSub();
     }
 
     private void createNewSub() {
-      //  mName = findViewById(R.id.text_name);
-      //  mDescription = findViewById(R.id.text_description);
-      //  mCost = findViewById(R.id.text_cost);
-      //  mDate = findViewById(R.id.text_date);
+        //  mName = findViewById(R.id.text_name);
+        //  mDescription = findViewById(R.id.text_description);
+        //  mCost = findViewById(R.id.text_cost);
+        //  mDate = findViewById(R.id.text_date);
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(SubscriptionInfoEntry.COLUMN_NAME, "");
@@ -289,7 +293,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
 
         CursorLoader loader = null;
 
-        if (id == LOADER_SUB){
+        if (id == LOADER_SUB) {
             loader = createLoaderSub();
         }
         return loader;
