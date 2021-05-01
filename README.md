@@ -21,4 +21,5 @@ Fill in the subscription info and hit save. You subscription should now be in th
 Tap on the subscription to edit the information.
 
 Knowns Bugs
+
 Back button crashes the application. Temporary fix was to disable the back button.
