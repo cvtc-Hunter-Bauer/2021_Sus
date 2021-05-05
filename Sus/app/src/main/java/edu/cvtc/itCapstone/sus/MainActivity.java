@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_subscriptions);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_upcoming_payments:

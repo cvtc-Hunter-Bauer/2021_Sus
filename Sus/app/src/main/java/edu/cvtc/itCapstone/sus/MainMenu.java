@@ -1,10 +1,10 @@
 package edu.cvtc.itCapstone.sus;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -18,6 +18,8 @@ public class MainMenu extends AppCompatActivity {
 
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_upcoming_payments);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_upcoming_payments:
@@ -35,6 +37,7 @@ public class MainMenu extends AppCompatActivity {
                     break;                }
             return true;
         });
+
 
     }
 }
