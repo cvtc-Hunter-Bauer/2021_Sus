@@ -1,0 +1,343 @@
+header, main, nav, footer, figure, figcaption, aside, section, article {
+  display:block;
+}
+
+body {
+  background: #000000EE;
+  color: #2E0000;
+  font-family: Verdana, Arial, Sans-serif;
+  background-image: url();
+}
+
+
+
+button {
+  display: inline-block;
+  padding: 15px;
+  margin: 10px;
+  position: absolute;
+ 
+}
+#wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  background-color: #000000EE;
+  min-width: 960px;
+  max-width: 2048px;
+  box-shadow: 3px 3px #000;
+}
+
+
+  #graph {
+  margin-right: auto;
+  padding: 1.5em;
+  position: absolute;
+  margin: right;
+    
+  }
+
+
+  #graph {
+  margin-right: auto;
+  padding: 1.5em;
+  position: absolute;
+  margin: right;
+  
+  }
+
+ 
+img {
+
+  position: absolute;
+  right: 300px;
+  top: 150px;
+  max-width: 100%;
+  display: block;
+}
+
+
+form {
+  padding: 1.5em;
+}
+header {
+  
+}
+
+nav {
+  font-weight:bold;
+  text-align:center;
+  display: block;
+  padding: 10px;  
+  float: none;
+}
+
+nav li {
+  display:inline-block;
+  width: 10%;
+}
+
+main {
+  padding: 20px;
+  display: block;
+  background-color: #3468ec;
+  margin-left: auto;
+  margin-right: auto;
+}
+main img {
+  float: left;
+  padding-right: 2em; 
+}
+
+main ul {
+  list-style-position: inside;
+}
+
+main article {
+  margin-left: 20%;
+  margin-right: 20%;
+  overflow: auto;
+  font-size: 90%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+main article > p {
+  margin-bottom: 0;
+  overflow: auto;
+  font-size: 90%;
+}
+
+nav a {
+  text-decoration: none;
+}
+
+nav ul {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: 1.2em;
+}
+
+nav ul :link {
+  color: #795240;
+}
+
+nav ul :visited {
+  color: #A58366;
+}
+
+nav ul :hover {
+  color: #F5F5DC;
+}
+
+nav ul :focus {
+  color: #F5F5DC;
+}
+
+h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  margin: 0;
+  color: #FFF;
+  text-align: center;
+  font-size: 4em;
+    
+}
+
+h2 { 
+  font-family: Georgia, "Times New Roman", serif;
+  margin: 0;
+  color: #FFF;
+  text-align:left;
+  font-size: 4em;
+}
+
+p {
+  color: #FFF;
+}
+
+li {
+  color: #FFF;
+}
+
+h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  margin: 0;
+  color: #FFF;
+  text-align: center;
+  font-size: 2em;
+}
+
+label {
+  color: #FFF;
+}
+
+dt {
+  font-weight: bold;
+}
+
+form *{
+  display: block;
+  
+}
+
+#hero {
+  font-size: 16px;
+}
+input#checkbox {
+  color: #FFF;
+}
+
+footer {
+  background: #000;
+  color: #FFF; 
+  font-size: .60em;
+  font-style: italic;
+  text-align: center;
+  padding: 10px;
+}
+
+
+button a:hover {
+  color: #000;
+}
+
+footer a:link { 
+  color: #20B2AA; 
+}
+
+footer a:visited {
+  color: #20B2AA;
+}
+
+footer a:hover {
+  color: #FFF;
+}
+
+.mobile {
+  display: none;
+}
+.desktop {
+  display: inline;
+}
+
+table {
+  margin: auto;
+  width: 80%;
+}
+
+td, th {
+  padding: 10px;
+}
+
+tbody > tr:nth-of-type(odd) {
+  background-color: #3468ec
+}
+@media only screen and (max-width:64em){
+  body{
+    margin: 0;
+    background-color: #FFF;
+    background-image: none;
+  }
+  
+  #wrapper {
+    min-width: 0;
+    width: auto;
+    box-shadow: none;
+  }
+  
+  h1 {
+    margin: 0;
+  }
+  
+
+  
+  main {
+    margin-left: 0;
+  }
+  
+  nav {
+    float: none;
+    width:auto;
+    padding: 0;
+  }
+  
+  
+  
+  
+  
+  nav ul {
+    text-align: center;
+  }
+  
+  
+  nav li {
+    display: inline;
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-left: .75em;
+    padding-right: .75em;
+  }
+   
+}
+
+
+
+@media only screen and (max-width: 37.5em) {
+  nav li {
+    
+    display: inline-block;
+    width: 5em;
+    font-size: 120%;
+    text-align-last: center;
+    box-shadow: 2px 2px #000;
+    background-color: #FFF;
+    margin: 1%;
+    padding: 2.5%;
+    
+  }
+
+  
+  nav links {
+    display: block;
+    
+  }
+  nav a:hover {
+    color: #333300;
+  }
+  
+  main a:link {
+    color: #FFFFFF;
+  }
+  
+  main a:visited {
+    color: #EAEAEA;
+  }
+  
+  main a:hover {
+    color: #FFD700;
+  }
+  
+  article {
+    margin: 0;
+  }
+  
+  article img {
+    display: none;
+  }
+  
+  #hero {
+    height: auto;
+  }
+  
+  .mobile {
+    display: inline;
+  }
+  
+  .desktop {
+    display: none;
+  }
+  
+}
+
+
+
