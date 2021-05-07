@@ -215,5 +215,9 @@
             app:menu="@menu/bottom_navigation_menu" />
     </LinearLayout>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b73a1fa266708f807a15cedfb2735a20979ee6d9
 
 </androidx.constraintlayout.widget.ConstraintLayout>
