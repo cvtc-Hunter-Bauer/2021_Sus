@@ -1,33 +1,32 @@
 package edu.cvtc.itCapstone.sus;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
-
-import android.view.Menu;
-
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-
-import edu.cvtc.itCapstone.sus.DatabaseContract.SubscriptionInfoEntry;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import edu.cvtc.itCapstone.sus.DatabaseContract.SubscriptionInfoEntry;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -40,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     // Member constants
     public static final String MY_PREFS = "MyPrefs";
     public static final int LOADER_SUBS = 0;
+    public static final String CHANNEL_ID = "channel_payments";
 
     // Boolean to check if the 'onCreateLoader' method has run
     private boolean mIsCreated = false;
@@ -94,8 +94,27 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             overlayPageOne.setVisibility(View.VISIBLE);
         }
 
+        createNotificationChannel();
         initializeDisplayContent();
     }
+
+    private void createNotificationChannel() {
+        // Create NotificationChannel, but only on devices with API 26+ because
+        // the NotificationChannel class is new and wont work on older devices
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Upcoming payments";
+            String description = "Displays upcoming subscription payments";
+            int importance = NotificationManager.IMPORTANCE_LOW;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+
+            // Register the channel with the system;
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
