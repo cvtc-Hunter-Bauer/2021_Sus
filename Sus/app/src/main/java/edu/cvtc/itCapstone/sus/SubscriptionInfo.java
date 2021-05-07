@@ -18,12 +18,21 @@ public class SubscriptionInfo implements Parcelable {
         mDate = date;
     }
 
+    public SubscriptionInfo(int id, double cost){
+        mId = id;
+        mCost = cost;
+    }
+
     public SubscriptionInfo(int id, String name, String description, double cost, String date) {
         mId = id;
         mName = name;
         mDescription = description;
         mCost = cost;
         mDate = date;
+    }
+
+    public SubscriptionInfo(double aDouble) {
+        mCost = aDouble;
     }
 
     public String getName() {

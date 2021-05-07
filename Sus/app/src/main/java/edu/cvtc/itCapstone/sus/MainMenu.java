@@ -52,9 +52,9 @@ public class MainMenu extends AppCompatActivity implements LoaderManager.LoaderC
                     break;
                 case R.id.action_graph:
                     //TODO:Have a Intent to the graph activity and remove Toast
-                    //Intent intent = new Intent(MainActivity.this, Graph.class);
-                    //MainActivity.this.startActivity(intent);
-                    Toast.makeText(MainMenu.this, "Graph", Toast.LENGTH_SHORT).show();
+                    Intent intent2 = new Intent(MainMenu.this, Graph.class);
+                    MainMenu.this.startActivity(intent2);
+                   // Toast.makeText(MainMenu.this, "Graph", Toast.LENGTH_SHORT).show();
                     break;                }
             return true;
         });

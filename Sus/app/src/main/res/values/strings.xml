@@ -14,4 +14,10 @@
     <string name="menu_cancel_text">cancel</string>
     <string name="action_settings">settings</string>
     <string name="add_subscription">Adds a new subscription</string>
+    <string name="title_activity_sub_graph">subGraph</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 </resources>
