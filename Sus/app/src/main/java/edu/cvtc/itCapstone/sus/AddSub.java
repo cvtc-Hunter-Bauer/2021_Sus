@@ -82,7 +82,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         mName = findViewById(R.id.text_name);
         mDescription = findViewById(R.id.text_description);
         mCost = findViewById(R.id.text_cost);
-       // mDatepicker = findViewById(R.id.sub_DatePicker);
+        // mDatepicker = findViewById(R.id.sub_DatePicker);
         mDate = findViewById(R.id.text_date);
         mDate.setOnClickListener(new View.OnClickListener() {
             @Override

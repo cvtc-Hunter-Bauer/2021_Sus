@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A0CBF8"
+    android:background="#23857F"
     tools:context=".MainMenu">
 
 
@@ -12,84 +12,35 @@
         android:id="@id/title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Supervise ur Subscriptions"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
         android:id="@+id/header_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:fontFamily="monospace"
+        android:layout_marginTop="20dp"
         android:text="SUS"
-        android:textColor="#26985B"
         android:textSize="100sp"
+        android:textColor="#26985B"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
         android:id="@+id/upcoming_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_marginTop="150dp"
-=======
         android:layout_marginTop="10dp"
->>>>>>> a86fcd9d9e15460c13d15b3626569d726aff5e87
         android:fontFamily="monospace"
         android:text="Upcoming payments"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-<<<<<<< HEAD
-        app:layout_constraintTop_toBottomOf="@id/header_text"
-        tools:layout_editor_absoluteY="192dp" />
-
-    <TextView
-        android:id="@+id/subscription_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="monospace"
-        android:text="Subscription_here"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/upcoming_text"
-        tools:layout_editor_absoluteY="192dp" />
-
-    <TextView
-        android:id="@+id/upcoming_price_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="casual"
-        android:text="$15.99"
-        android:textColor="#F08E49"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toRightOf="@id/subscription_text"
-        app:layout_constraintTop_toBottomOf="@id/upcoming_text"
-        tools:layout_editor_absoluteY="256dp" />
-
-    <TextView
-        android:id="@+id/upcoming_date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="casual"
-        android:text="MM/DD"
-        android:textColor="#F08E49"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toRightOf="@id/upcoming_price_text"
-        app:layout_constraintTop_toBottomOf="@id/upcoming_text"
-        tools:layout_editor_absoluteY="256dp" />
-=======
         app:layout_constraintTop_toBottomOf="@id/header_text" />
 
     <include
@@ -101,7 +52,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/upcoming_text" />
->>>>>>> a86fcd9d9e15460c13d15b3626569d726aff5e87
 
     <TextView
         android:id="@+id/spending_text"
@@ -124,14 +74,8 @@
         android:fontFamily="monospace"
         android:text="Monthly Spending: "
         android:textSize="20sp"
-<<<<<<< HEAD
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spending_text"
-        tools:layout_editor_absoluteY="192dp" />
-=======
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spending_text" />
->>>>>>> a86fcd9d9e15460c13d15b3626569d726aff5e87
 
     <TextView
         android:id="@+id/monthly_dollar_text"
@@ -154,8 +98,8 @@
         android:fontFamily="monospace"
         android:text="Six Month Spending: "
         android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/monthly_text"
+        app:layout_constraintLeft_toLeftOf="parent"
         tools:layout_editor_absoluteY="192dp" />
 
     <TextView
@@ -179,14 +123,8 @@
         android:fontFamily="monospace"
         android:text="Yearly Spending: "
         android:textSize="20sp"
-<<<<<<< HEAD
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/half_year_text"
-        tools:layout_editor_absoluteY="192dp" />
-=======
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/half_year_text" />
->>>>>>> a86fcd9d9e15460c13d15b3626569d726aff5e87
 
     <TextView
         android:id="@+id/yearly_dollar_text"
@@ -199,6 +137,7 @@
         android:textSize="20sp"
         app:layout_constraintLeft_toRightOf="@id/yearly_text"
         app:layout_constraintTop_toBottomOf="@id/half_year_text" />
+
 
 
     <!--    <TextView-->
@@ -243,9 +182,6 @@
             app:menu="@menu/bottom_navigation_menu" />
     </LinearLayout>
 
-<<<<<<< HEAD
-=======
 
->>>>>>> b73a1fa266708f807a15cedfb2735a20979ee6d9
 
 </androidx.constraintlayout.widget.ConstraintLayout>

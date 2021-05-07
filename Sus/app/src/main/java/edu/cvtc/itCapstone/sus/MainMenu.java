@@ -16,13 +16,6 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-<<<<<<< HEAD
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Toast;
-
-=======
->>>>>>> b73a1fa266708f807a15cedfb2735a20979ee6d9
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import static edu.cvtc.itCapstone.sus.MainActivity.LOADER_SUBS;
@@ -46,11 +39,8 @@ public class MainMenu extends AppCompatActivity implements LoaderManager.LoaderC
         mDbOpenHelper = new SubscriptionOpenHelper(this);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-<<<<<<< HEAD
-=======
         bottomNavigationView.setSelectedItemId(R.id.action_upcoming_payments);
 
->>>>>>> b73a1fa266708f807a15cedfb2735a20979ee6d9
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_upcoming_payments:
@@ -69,12 +59,6 @@ public class MainMenu extends AppCompatActivity implements LoaderManager.LoaderC
             return true;
         });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> b73a1fa266708f807a15cedfb2735a20979ee6d9
-=======
         initializeDisplayContent();
         displaySpending();
     }
@@ -209,6 +193,5 @@ public class MainMenu extends AppCompatActivity implements LoaderManager.LoaderC
         monthlyText.setText("$ " + spending);
         sixMonthlyText.setText("$ " + (spending * 6));
         yearlyText.setText("$ " + (spending * 12));
->>>>>>> a86fcd9d9e15460c13d15b3626569d726aff5e87
     }
 }
