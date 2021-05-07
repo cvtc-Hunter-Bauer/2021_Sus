@@ -77,6 +77,7 @@ public class Graph extends AppCompatActivity implements LoaderManager.LoaderCall
         }
         PieDataSet pieDate = new PieDataSet(value, "test");
         PieData pie = new PieData(pieDate);
+        pie.setValueTextSize(11f);
         pieChart.setData(pie);
         pieDate.setColors(ColorTemplate.COLORFUL_COLORS);
 

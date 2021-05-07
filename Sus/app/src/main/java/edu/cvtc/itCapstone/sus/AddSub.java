@@ -102,6 +102,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         mDate.setText((month + 1) + "/" + dayOfMonth + "/" + year);
+
                     }
                 }, mYear, mMonth, mDay);
                 mDatepicker.show();
