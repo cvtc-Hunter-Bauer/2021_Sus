@@ -35,86 +35,53 @@
         android:id="@+id/upcoming_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:fontFamily="monospace"
-        android:text="Upcoming payment"
+        android:text="Upcoming payments"
         android:textSize="20sp"
-        android:layout_marginTop="150dp"
-        app:layout_constraintTop_toBottomOf="@id/header_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="192dp" />
+        app:layout_constraintTop_toBottomOf="@id/header_text" />
 
-    <TextView
-        android:id="@+id/subscription_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="monospace"
-        android:text="Subscription_here"
-        android:textSize="20sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/upcoming_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_editor_absoluteY="192dp" />
-
-    <TextView
-        android:id="@+id/upcoming_price_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:text="$15.99"
-        android:textColor="#F08E49"
-        android:textSize="20sp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintTop_toBottomOf="@id/upcoming_text"
-        app:layout_constraintLeft_toRightOf="@id/subscription_text"
-        tools:layout_editor_absoluteY="256dp" />
-
-    <TextView
-        android:id="@+id/upcoming_date_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="casual"
-        android:text="MM/DD"
-        android:textColor="#F08E49"
-        android:textSize="20sp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintTop_toBottomOf="@id/upcoming_text"
-        app:layout_constraintLeft_toRightOf="@id/upcoming_price_text"
-        tools:layout_editor_absoluteY="256dp" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_sub"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        app:layout_constraintBottom_toTopOf="@+id/spending_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upcoming_text" />
 
     <TextView
         android:id="@+id/spending_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="monospace"
         android:text="Your Spending"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/subscription_text" />
+        app:layout_constraintTop_toBottomOf="@+id/include" />
 
     <TextView
         android:id="@+id/monthly_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="monospace"
         android:text="Monthly Spending: "
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/spending_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_editor_absoluteY="192dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spending_text" />
 
     <TextView
         android:id="@+id/monthly_dollar_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="casual"
         android:text="$99.00"
         android:textColor="#F08E49"
@@ -156,9 +123,8 @@
         android:fontFamily="monospace"
         android:text="Yearly Spending: "
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/half_year_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        tools:layout_editor_absoluteY="192dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/half_year_text" />
 
     <TextView
         android:id="@+id/yearly_dollar_text"
