@@ -83,7 +83,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
 
             @Override
             public void onClick(View v) {
-                if (mName.getText().toString().isEmpty() || mDescription.getText().toString().isEmpty() || mCost.getText().toString().isEmpty() || mDate.getText().toString().isEmpty()) {
+                if (mName.getText().toString().trim().isEmpty() || mDescription.getText().toString().trim().isEmpty() || mCost.getText().toString().isEmpty() || mDate.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AddSub.this, "Please make sure the fields are filled", Toast.LENGTH_SHORT).show();
                 } else {
                     if (savedInstanceState == null) {

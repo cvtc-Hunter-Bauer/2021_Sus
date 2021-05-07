@@ -2,6 +2,7 @@ package edu.cvtc.itCapstone.sus;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.loader.app.LoaderManager;
@@ -16,12 +17,16 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+
 import android.view.Menu;
+
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import edu.cvtc.itCapstone.sus.DatabaseContract.SubscriptionInfoEntry;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -39,12 +44,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     // Boolean to check if the 'onCreateLoader' method has run
     private boolean mIsCreated = false;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-     //   Toolbar toolbar = findViewById(R.id.toolbar);
-     // setSupportActionBar(toolbar);
+        //   Toolbar toolbar = findViewById(R.id.toolbar);
+        // setSupportActionBar(toolbar);
 
         mDbOpenHelper = new SubscriptionOpenHelper(this);
 
@@ -57,6 +64,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_subscriptions);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_upcoming_payments:
+                    Intent intent = new Intent(MainActivity.this, MainMenu.class);
+                    MainActivity.this.startActivity(intent);
+                    break;
+                case R.id.action_subscriptions:
+
+                    break;
+                case R.id.action_graph:
+                    //TODO:Have a Intent to the graph activity and remove Toast
+                    //Intent intent = new Intent(MainActivity.this, Graph.class);
+                    //MainActivity.this.startActivity(intent);
+                    Toast.makeText(MainActivity.this, "Graph", Toast.LENGTH_SHORT).show();
+                    break;                }
+            return true;
+        });
 
         SharedPreferences sp = getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
         if (sp.getBoolean("firstStart", true)) {
@@ -127,7 +153,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // we re-query the database each time the activity is
         // loaded in the app.
         LoaderManager.getInstance(this).restartLoader(LOADER_SUBS, null, this);
+
     }
+
 
     public void closeTutorial(View view) {
         View overlayPageOne = findViewById(R.id.OverlayPageOne);
