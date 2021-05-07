@@ -1,8 +1,9 @@
 package edu.cvtc.itCapstone.sus;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.CursorLoader;
@@ -19,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
     public static final String ORIGINAL_SUBSCRIPTION_COST = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_COST";
     public static final String ORIGINAL_SUBSCRIPTION_DATE = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_DATE";
 
+    public static final String CHANNEL_ID = "channel_payments";
     public static final int ID_NOT_SET = -1;
     public static final int LOADER_SUB = 0;
     private int mSubId;
@@ -57,6 +60,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
     private EditText mDescription;
     private EditText mCost;
     private EditText mDate;
+    private CheckBox mCheckbox;
 
     private Button mButton;
     private Cursor mCursor;
@@ -84,6 +88,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         mCost = findViewById(R.id.text_cost);
         // mDatepicker = findViewById(R.id.sub_DatePicker);
         mDate = findViewById(R.id.text_date);
+        mCheckbox = findViewById(R.id.cbx_notification);
         mDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +120,10 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
                         saveOriginalSub();
                     } else {
                         restoreOriginalSub(savedInstanceState);
+                    }
+
+                    if (mCheckbox.isChecked()) {
+                        createNotification();
                     }
                     startActivity(new Intent(AddSub.this, MainActivity.class));
                 }
@@ -377,5 +386,17 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
                 mCursor.close();
             }
         }
+    }
+
+    private void createNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_payments);
+        builder.setContentTitle("Upcoming Payment to " + mName.getText());
+        builder.setContentText("Your Payment to " + mName.getText() + " will be payed on " + mDate.getText() + ".");
+        builder.setPriority(NotificationCompat.PRIORITY_LOW);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(mSubId, builder.build());
     }
 }
