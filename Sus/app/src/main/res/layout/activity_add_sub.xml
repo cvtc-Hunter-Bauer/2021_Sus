@@ -57,7 +57,8 @@
         android:gravity="start|top"
         android:hint="@string/subscription_dateFormat_hint"
         android:importantForAutofill="no"
-        android:inputType="textMultiLine"
+        android:inputType="none"
+        android:focusable="false"
         app:layout_constraintEnd_toEndOf="@+id/text_cost"
         app:layout_constraintStart_toStartOf="@+id/text_cost"
         app:layout_constraintTop_toBottomOf="@+id/text_cost" />
