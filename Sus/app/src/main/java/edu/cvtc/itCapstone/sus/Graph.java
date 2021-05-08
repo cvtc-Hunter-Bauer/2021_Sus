@@ -79,6 +79,7 @@ public class Graph extends AppCompatActivity implements LoaderManager.LoaderCall
         PieData pie = new PieData(pieDate);
         pie.setValueTextSize(11f);
         pieChart.setData(pie);
+        // setting piechart color
         pieDate.setColors(ColorTemplate.COLORFUL_COLORS);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
