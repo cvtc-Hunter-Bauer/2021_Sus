@@ -6,7 +6,7 @@ import java.util.List;
 import edu.cvtc.itCapstone.sus.DatabaseContract.SubscriptionInfoEntry;
 public class DataManager {
     private static DataManager ourInstance = null;
-    private List<SubscriptionInfo> mSubscriptions = new ArrayList<>();
+    private final List<SubscriptionInfo> mSubscriptions = new ArrayList<>();
     public static DataManager getInstance() {
         if (ourInstance == null) {
             ourInstance = new DataManager();

@@ -7,7 +7,7 @@ import static edu.cvtc.itCapstone.sus.DatabaseContract.*;
 
 public class DataWorker {
 
-    private SQLiteDatabase  mDb;
+    private final SQLiteDatabase  mDb;
 
     public DataWorker(SQLiteDatabase db){
         mDb = db;
