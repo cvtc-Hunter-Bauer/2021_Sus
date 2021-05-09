@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3468EC"
     tools:context=".AddSub">
 
+    <!-- Subscription name text entry   -->
     <EditText
         android:id="@+id/text_name"
         android:layout_width="0dp"
@@ -14,13 +16,17 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:gravity="start|top"
         android:hint="@string/subscription_name_hint"
         android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:textColor="#E3E8E5"
+        android:textColorHint="#E3E8E5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="start|top"
-        android:inputType="textMultiLine" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Subscription description text entry   -->
     <EditText
         android:id="@+id/text_description"
         android:layout_width="0dp"
@@ -31,10 +37,13 @@
         android:hint="@string/subscription_description_hint"
         android:importantForAutofill="no"
         android:inputType="textMultiLine"
+        android:textColor="#E3E8E5"
+        android:textColorHint="#E3E8E5"
         app:layout_constraintEnd_toEndOf="@+id/text_name"
         app:layout_constraintStart_toStartOf="@+id/text_name"
         app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
+    <!-- Subscription cost text entry   -->
     <EditText
         android:id="@+id/text_cost"
         android:layout_width="0dp"
@@ -45,9 +54,13 @@
         android:hint="@string/subscription_cost_hint"
         android:importantForAutofill="no"
         android:inputType="number|numberDecimal"
+        android:textColor="#E3E8E5"
+        android:textColorHint="#E3E8E5"
         app:layout_constraintEnd_toEndOf="@+id/text_description"
         app:layout_constraintStart_toStartOf="@+id/text_description"
         app:layout_constraintTop_toBottomOf="@+id/text_description" />
+
+    <!-- Subscription date text entry   -->
     <EditText
         android:id="@+id/text_date"
         android:layout_width="0dp"
@@ -58,21 +71,27 @@
         android:hint="@string/subscription_dateFormat_hint"
         android:importantForAutofill="no"
         android:inputType="none"
+        android:textColor="#E3E8E5"
+        android:textColorHint="#E3E8E5"
         android:focusable="false"
         app:layout_constraintEnd_toEndOf="@+id/text_cost"
         app:layout_constraintStart_toStartOf="@+id/text_cost"
         app:layout_constraintTop_toBottomOf="@+id/text_cost" />
 
+    <!-- Notification checkbox   -->
     <CheckBox
         android:id="@+id/cbx_notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:text="Do you want to be notified when this payment is due?"
+        android:text="@string/notification_question"
+        android:textColor="#E3E8E5"
+        android:buttonTint="#E3E8E5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_date" />
 
+    <!-- Save button  -->
     <Button
         android:id="@+id/button_save"
         android:layout_width="wrap_content"
@@ -84,6 +103,7 @@
         app:layout_constraintStart_toStartOf="@+id/text_date"
         app:layout_constraintTop_toBottomOf="@+id/cbx_notification" />
 
+    <!--  Delete button  -->
     <Button
         android:id="@+id/button_delete"
         android:layout_width="wrap_content"
