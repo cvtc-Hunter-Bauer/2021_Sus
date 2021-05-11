@@ -48,11 +48,15 @@ public class MainMenu extends AppCompatActivity implements LoaderManager.LoaderC
                     break;
                 case R.id.action_subscriptions:
                     Intent intent = new Intent(MainMenu.this, MainActivity.class);
+                    overridePendingTransition(0, 0);
                     MainMenu.this.startActivity(intent);
+                    overridePendingTransition(0, 0);
                     break;
                 case R.id.action_graph:
                     Intent intent2 = new Intent(MainMenu.this, Graph.class);
+                    overridePendingTransition(0, 0);
                     MainMenu.this.startActivity(intent2);
+                    overridePendingTransition(0, 0);
                     break;
             }
             return true;

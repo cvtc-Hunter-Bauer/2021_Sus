@@ -88,12 +88,16 @@ public class Graph extends AppCompatActivity implements LoaderManager.LoaderCall
             switch (item.getItemId()) {
                 case R.id.action_upcoming_payments:
                     Intent intent = new Intent(Graph.this, MainMenu.class);
+                    overridePendingTransition(0, 0);
                     Graph.this.startActivity(intent);
+                    overridePendingTransition(0, 0);
                     break;
 
                 case R.id.action_subscriptions:
                     Intent intent2 = new Intent(Graph.this, MainActivity.class);
+                    overridePendingTransition(0, 0);
                     Graph.this.startActivity(intent2);
+                    overridePendingTransition(0, 0);
                     break;
                 case R.id.action_graph:
 

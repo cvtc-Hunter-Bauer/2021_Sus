@@ -70,14 +70,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             switch (item.getItemId()) {
                 case R.id.action_upcoming_payments:
                     Intent intent = new Intent(MainActivity.this, MainMenu.class);
+                    overridePendingTransition(0, 0);
                     MainActivity.this.startActivity(intent);
+                    overridePendingTransition(0, 0);
                     break;
                 case R.id.action_subscriptions:
 
                     break;
                 case R.id.action_graph:
                     Intent intent2 = new Intent(MainActivity.this, Graph.class);
+                    overridePendingTransition(0, 0);
                     MainActivity.this.startActivity(intent2);
+                    overridePendingTransition(0, 0);
                     break;
             }
             return true;
