@@ -103,8 +103,33 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
                 mDatepicker = new DatePickerDialog(AddSub.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        mDate.setText((month + 1) + "/" + dayOfMonth + "/" + year);
 
+                        // Before we can set the text for the date we need to change it to be compatible with SQL
+                        // It must be set into the format YYYY-MM-DD
+                        // this includes requiring adding leading zeros to single digit numbers
+                        // ie: 2021/09/01
+
+                        month = month + 1;
+                        // Convert int to strings
+                        String monthString;
+                        String dayString;
+                        String yearString = String.valueOf(year);
+
+                        // Month
+                        if (month < 10) {
+                            monthString = "0" + String.valueOf(month);
+                        } else {
+                            monthString = String.valueOf(month);
+                        }
+
+                        // Day
+                        if (dayOfMonth < 10) {
+                            dayString = "0" + String.valueOf(dayOfMonth);
+                        } else {
+                            dayString = String.valueOf(dayOfMonth);
+                        }
+
+                        mDate.setText(yearString + "-" + monthString + "-" + dayString);
                     }
                 }, mYear, mMonth, mDay);
                 mDatepicker.show();

@@ -18,6 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Year;
+import java.util.Calendar;
+import java.util.Date;
+
 import static edu.cvtc.itCapstone.sus.MainActivity.LOADER_SUBS;
 
 public class MainMenu extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -116,6 +123,45 @@ public class MainMenu extends AppCompatActivity implements LoaderManager.LoaderC
                 public Cursor loadInBackground() {
                     mIsCreated = true;
 
+                    // Create our selection
+                    final String selection ="DATE(" + DatabaseContract.SubscriptionInfoEntry.COLUMN_DATE + ") <= DATE(?)";
+
+                    // Create a Calendar object on today's date, add 4 days to the calendar.
+                    // This will be the upper bounds that table will pull from
+                    // Any subscription past this will not be shown in upcoming payments
+                    Calendar calendarMaxDate = Calendar.getInstance();
+                    calendarMaxDate.add(Calendar.DATE, 4);
+
+                    // Next we need to turn the date from our calendar into something
+                    // that SQL can read; The format is YYYY-MM-DD.
+                    String dayString;
+                    String monthString;
+                    String yearString = String.valueOf(calendarMaxDate.get(Calendar.YEAR));
+
+                    // Convert day to a string
+                    // add a leading zero if less then 10
+                    int day = calendarMaxDate.get(Calendar.DAY_OF_MONTH);
+                    if (day < 10) {
+                        dayString = "0" + day;
+                    } else {
+                        dayString = String.valueOf(day);
+                    }
+
+                    // Convert month to a string
+                    // add a leading zero if less then 10
+                    int month = calendarMaxDate.get(Calendar.MONTH) + 1;
+                    if (month < 10) {
+                        monthString = "0" + month;
+                    } else {
+                        monthString = String.valueOf(month);
+                    }
+
+                    // Add all the parts together in a date String
+                    String dateString = yearString + "-" + monthString + "-" + dayString;
+
+                    // Finally create the argument for our selection
+                    final String[] selectionArgs = {dateString};
+
                     // Open our database in read mode.
                     SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
 
@@ -132,7 +178,7 @@ public class MainMenu extends AppCompatActivity implements LoaderManager.LoaderC
 
                     // Populate our cursor with the results of the query.
                     return db.query(DatabaseContract.SubscriptionInfoEntry.TABLE_NAME, subColumns,
-                            null, null, null, null,
+                            selection, selectionArgs, null, null,
                             subscriptionsOrderBy);
                 }
             };
