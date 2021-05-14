@@ -14,7 +14,9 @@ import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -46,12 +48,12 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
     public static final String NOTIFICATION_TEXT = "edu.cvtc.itCapstone.sus_NOTIFICATION_TEXT";
     public static final String NOTIFICATION_ID = "edu.cvtc.itCapstone.sus_NOTIFICATION_ID";
 
-    //TODO: move to broadcast
-    public static final String CHANNEL_ID = "channel_payments";
     public static final int ID_NOT_SET = -1;
     public static final int LOADER_SUB = 0;
     private int mSubId;
     private SubscriptionOpenHelper mDbOpenHelper;
+    private SharedPreferences sharedPref;
+
 
     private final SubscriptionInfo mSub = new SubscriptionInfo(0, "", "", 0.0, "");
     private int mSubNamePosition;
@@ -87,6 +89,8 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sub);
+
+        sharedPref = this.getSharedPreferences("edu.cvtc.itCapstone", Context.MODE_PRIVATE);
 
         mDbOpenHelper = new SubscriptionOpenHelper(this);
         mButton = findViewById(R.id.button_save);
@@ -160,7 +164,15 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
                     }
 
                     if (mCheckbox.isChecked()) {
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putInt(String.valueOf(mSubId), 1);
+                        editor.apply();
+
                         scheduleNotification();
+                    } else {
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putInt(String.valueOf(mSubId), 0);
+                        editor.apply();
                     }
                     startActivity(new Intent(AddSub.this, MainActivity.class));
                 }
@@ -290,12 +302,15 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
             String subCost = mCursor.getString(mSubCostPosition);
             String subDate = mCursor.getString(mSubDatePosition);
 
+            int subNotificationString = sharedPref.getInt(String.valueOf(mSubId), 0);
+            boolean subNotification = subNotificationString > 0;
 
             // fills the edit texts in the layout
             mName.setText(subName);
             mDescription.setText(subDescription);
             mCost.setText(subCost);
             mDate.setText(subDate);
+            mCheckbox.setChecked(subNotification);
         }
 
 
