@@ -32,4 +32,7 @@
     <string name="yearly_spending">Yearly Spending:</string>
     <string name="yearly_amount">$99.00</string>
     <string name="notification_question">Do you want to be notified when this payment is due?</string>
+    <string name="order_by_name">Order by Name</string>
+    <string name="order_by_price">Order by Price</string>
+    <string name="order_by_date">Order by Date</string>
 </resources>
