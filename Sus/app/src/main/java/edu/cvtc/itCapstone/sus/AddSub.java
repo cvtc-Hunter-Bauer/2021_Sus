@@ -10,9 +10,13 @@ import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -26,23 +30,30 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import edu.cvtc.itCapstone.sus.DatabaseContract.SubscriptionInfoEntry;
 
 public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    
+    // Member Constraints
     public static final String SUBSCRIPTION_ID = "edu.cvtc.itCapstone.sus.SUBSCRIPTION_ID";
     public static final String ORIGINAL_SUBSCRIPTION_NAME = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_NAME";
     public static final String ORIGINAL_SUBSCRIPTION_DESCRIPTION = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_DESCRIPTION";
     public static final String ORIGINAL_SUBSCRIPTION_COST = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_COST";
     public static final String ORIGINAL_SUBSCRIPTION_DATE = "edu.cvtc.itCapstone.sus.ORIGINAL_SUBSCRIPTION_DATE";
+    public static final String NOTIFICATION_TITLE = "edu.cvtc.itCapstone.sus_NOTIFICATION_TITLE";
+    public static final String NOTIFICATION_TEXT = "edu.cvtc.itCapstone.sus_NOTIFICATION_TEXT";
+    public static final String NOTIFICATION_ID = "edu.cvtc.itCapstone.sus_NOTIFICATION_ID";
 
-    public static final String CHANNEL_ID = "channel_payments";
     public static final int ID_NOT_SET = -1;
     public static final int LOADER_SUB = 0;
     private int mSubId;
     private SubscriptionOpenHelper mDbOpenHelper;
+    private SharedPreferences sharedPref;
+
 
     private final SubscriptionInfo mSub = new SubscriptionInfo(0, "", "", 0.0, "");
     private int mSubNamePosition;
@@ -79,6 +90,8 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sub);
 
+        sharedPref = this.getSharedPreferences("edu.cvtc.itCapstone", Context.MODE_PRIVATE);
+
         mDbOpenHelper = new SubscriptionOpenHelper(this);
         mButton = findViewById(R.id.button_save);
         mDeleteButton = findViewById(R.id.button_delete);
@@ -103,8 +116,33 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
                 mDatepicker = new DatePickerDialog(AddSub.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        mDate.setText((month + 1) + "/" + dayOfMonth + "/" + year);
 
+                        // Before we can set the text for the date we need to change it to be compatible with SQL
+                        // It must be set into the format YYYY-MM-DD
+                        // this includes requiring adding leading zeros to single digit numbers
+                        // ie: 2021/09/01
+
+                        month = month + 1;
+                        // Convert int to strings
+                        String monthString;
+                        String dayString;
+                        String yearString = String.valueOf(year);
+
+                        // Month
+                        if (month < 10) {
+                            monthString = "0" + String.valueOf(month);
+                        } else {
+                            monthString = String.valueOf(month);
+                        }
+
+                        // Day
+                        if (dayOfMonth < 10) {
+                            dayString = "0" + String.valueOf(dayOfMonth);
+                        } else {
+                            dayString = String.valueOf(dayOfMonth);
+                        }
+
+                        mDate.setText(yearString + "-" + monthString + "-" + dayString);
                     }
                 }, mYear, mMonth, mDay);
                 mDatepicker.show();
@@ -126,7 +164,15 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
                     }
 
                     if (mCheckbox.isChecked()) {
-                        createNotification();
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putInt(String.valueOf(mSubId), 1);
+                        editor.apply();
+
+                        scheduleNotification();
+                    } else {
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putInt(String.valueOf(mSubId), 0);
+                        editor.apply();
                     }
                     startActivity(new Intent(AddSub.this, MainActivity.class));
                 }
@@ -256,12 +302,15 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
             String subCost = mCursor.getString(mSubCostPosition);
             String subDate = mCursor.getString(mSubDatePosition);
 
+            int subNotificationString = sharedPref.getInt(String.valueOf(mSubId), 0);
+            boolean subNotification = subNotificationString > 0;
 
             // fills the edit texts in the layout
             mName.setText(subName);
             mDescription.setText(subDescription);
             mCost.setText(subCost);
             mDate.setText(subDate);
+            mCheckbox.setChecked(subNotification);
         }
 
 
@@ -393,16 +442,33 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         }
     }
 
-    private void createNotification() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
-        builder.setSmallIcon(R.drawable.ic_payments);
-        builder.setContentTitle("Upcoming Payment to " + mName.getText());
-        builder.setContentText("Your Payment to " + mName.getText() + " will be payed on " + mDate.getText() + ".");
-        builder.setPriority(NotificationCompat.PRIORITY_LOW);
+    private void scheduleNotification() {
 
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        // notificationId is a unique int for each notification that you must define
-        notificationManager.notify(mSubId, builder.build());
+        // Create our intent and load it with all the Strings it will need
+        Intent intent = new Intent(this, NotificationHandler.class);
+        intent.putExtra(NOTIFICATION_TITLE, "Upcoming Payment to " + mName.getText());
+        intent.putExtra(NOTIFICATION_TEXT, "Your Payment to " + mName.getText() + " will be payed on " + mDate.getText() + ".");
+        intent.putExtra(NOTIFICATION_ID, mSubId);
+
+        // Set the intent to trigger when the alarm goes off
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this.getApplicationContext(), 42069,intent,0);
+
+        // Convert the date String into a Date object
+        // First set a ParsePosition
+        ParsePosition pos = new ParsePosition(0);
+
+        // Second set the DateFormat
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        // Finally Parse the date
+        Date date = simpleDateFormat.parse(mDate.getText().toString(), pos);
+        // Convert the date into milliseconds and minus 259200000 milliseconds (3 Days)
+        long displayDate = date.getTime() - 259200000;
+
+        // Set the alarm to go off three days before the subscription is due
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC,displayDate ,pendingIntent);
     }
         // On Delete button click
         public void deleteSubscription(View view) {

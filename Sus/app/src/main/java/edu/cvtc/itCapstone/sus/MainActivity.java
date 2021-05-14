@@ -70,14 +70,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             switch (item.getItemId()) {
                 case R.id.action_upcoming_payments:
                     Intent intent = new Intent(MainActivity.this, MainMenu.class);
+                    overridePendingTransition(0, 0);
                     MainActivity.this.startActivity(intent);
+                    overridePendingTransition(0, 0);
                     break;
                 case R.id.action_subscriptions:
 
                     break;
                 case R.id.action_graph:
                     Intent intent2 = new Intent(MainActivity.this, Graph.class);
+                    overridePendingTransition(0, 0);
                     MainActivity.this.startActivity(intent2);
+                    overridePendingTransition(0, 0);
                     break;
             }
             return true;
@@ -123,14 +127,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        // Order items
+        switch (item.getItemId()) {
+            case R.id.action_name:
+                orderSubscriptions(SubscriptionInfoEntry.COLUMN_NAME);
+                return true;
+            case R.id.action_price:
+                orderSubscriptions(SubscriptionInfoEntry.COLUMN_COST);
+                return true;
+            case R.id.action_date:
+                orderSubscriptions(SubscriptionInfoEntry.COLUMN_DATE);
+                return true;
+            default:
+                // Nothing
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -180,12 +191,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         overlayPageOne.setVisibility(View.INVISIBLE);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
 
     @NonNull
     @Override
@@ -222,6 +227,34 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             };
         }
         return loader;
+    }
+
+
+    public void orderSubscriptions(String subscriptionsOrderBy) {
+        // Create new cursor loader
+        CursorLoader loader = null;
+
+        Cursor data;
+
+        data = null;
+        SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
+
+
+        // Create a list of columns we want to return.
+        String[] subColumns = {
+                DatabaseContract.SubscriptionInfoEntry.COLUMN_NAME,
+                DatabaseContract.SubscriptionInfoEntry.COLUMN_DESCRIPTION,
+                DatabaseContract.SubscriptionInfoEntry.COLUMN_COST,
+                DatabaseContract.SubscriptionInfoEntry.COLUMN_DATE,
+                DatabaseContract.SubscriptionInfoEntry._ID};
+
+        // Populate cursor with the results of the query
+        data = db.query(SubscriptionInfoEntry.TABLE_NAME, subColumns,
+                null, null, null, null,
+                subscriptionsOrderBy);
+
+        // Associate the cursor with out RecyclerAdapter
+        mSubRecyclerAdapter.changeCursor(data);
     }
 
     @Override

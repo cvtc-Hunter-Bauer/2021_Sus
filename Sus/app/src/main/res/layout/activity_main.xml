@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#3468EC"
     tools:context=".MainActivity">
-
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout3"
@@ -23,20 +23,18 @@
             app:popupTheme="@color/cardview_light_background" />
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!-- Recycler view   -->
     <include
         android:id="@+id/include"
         layout="@layout/content_sub"
-        android:layout_width="416dp"
-        android:layout_height="641dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--  Add sub button (+)  -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -52,6 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="@string/add_subscription" />
 
+    <!--  Main layout  -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -61,6 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <!-- Bottom Navigation bar       -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
@@ -68,7 +68,7 @@
             app:menu="@menu/bottom_navigation_menu" />
     </LinearLayout>
 
-
+    <!--  Tutorial Overlay  -->
     <RelativeLayout
         android:id="@+id/OverlayPageOne"
         android:layout_width="match_parent"
@@ -83,6 +83,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
 
+        <!-- Tutorial add text -->
         <TextView
             android:id="@+id/textView2"
             android:layout_width="165dp"
@@ -95,6 +96,7 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
 
+        <!-- Tutorial arrow to add -->
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="113dp"
@@ -107,6 +109,7 @@
             android:rotation="70"
             app:srcCompat="@drawable/ic_arrow" />
 
+        <!--   Close button  -->
         <Button
             android:id="@+id/button"
             android:layout_width="20dp"
@@ -120,6 +123,7 @@
             android:onClick="closeTutorial"
             android:text="@string/close" />
 
+        <!--   Tutorial edit text     -->
         <TextView
             android:id="@+id/textView"
             android:layout_width="118dp"
@@ -133,6 +137,7 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp" />
 
+        <!--   Tutorial arrow to edit  -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="100dp"
