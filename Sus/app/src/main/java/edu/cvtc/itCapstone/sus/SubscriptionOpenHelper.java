@@ -8,8 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieEntry;
+
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import static edu.cvtc.itCapstone.sus.DatabaseContract.*;
@@ -34,42 +37,24 @@ public class SubscriptionOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<Float> getSubs() {
-        List<SubscriptionInfo> subscriptionInfo = new ArrayList<>();
-        List<Float> test = new ArrayList<>();
+
+    //method to step through database and add into an array of pieEntries
+    public ArrayList<PieEntry> getValues(){
 
         SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<PieEntry> dataV = new ArrayList<>();
+        String[] columns = {"cost", "name"};
+        Cursor cursor = db.query("subscriptions", columns, null, null, null, null, null);
 
-        Cursor crs = db.rawQuery("SELECT cost FROM subscriptions",null);
-        while(crs.moveToNext()) {
+        for(int i=0; i<cursor.getCount(); i++){
 
-                   test.add(crs.getFloat(0));
-
-
-
+            cursor.moveToNext();
+            dataV.add(new PieEntry(cursor.getFloat(0), cursor.getString(1)));
         }
-        crs.close();
 
-        return test;
+        return dataV;
+
     }
 
-    public List<String> getSubsNames() {
-        List<SubscriptionInfo> subscriptionInfo = new ArrayList<>();
-        List<String> test = new ArrayList<>();
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        Cursor crs = db.rawQuery("SELECT name FROM subscriptions",null);
-        while(crs.moveToNext()) {
-
-            test.add(crs.getString(0));
-
-
-
-        }
-        crs.close();
-
-        return test;
-    }
 }
 

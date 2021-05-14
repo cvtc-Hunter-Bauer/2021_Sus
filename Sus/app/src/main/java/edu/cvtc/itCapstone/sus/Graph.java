@@ -18,14 +18,17 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static edu.cvtc.itCapstone.sus.MainActivity.LOADER_SUBS;
 
@@ -64,18 +67,8 @@ public class Graph extends AppCompatActivity implements LoaderManager.LoaderCall
         description.setText("This your monthly spending");
         pieChart.setDescription(description);
 
-
-        List<PieEntry> value = new ArrayList<>();
-        //List<SubscriptionInfo> list = new ArrayList<>();
-        List<Float> list =  mDbOpenHelper.getSubs();
-
-        for(int i = 0; i < list.size(); i++) {
-
-                 test = value.add(new PieEntry(Float.parseFloat(String.valueOf(mDbOpenHelper.getSubs().get(i))), mDbOpenHelper.getSubsNames().get(i) ));
-
-
-        }
-        PieDataSet pieDate = new PieDataSet(value, "test");
+        // using method that steps through database inserting into a PieEntry object
+        PieDataSet pieDate = new PieDataSet(mDbOpenHelper.getValues(), "Subscriptions");
         PieData pie = new PieData(pieDate);
         pie.setValueTextSize(11f);
         pieChart.setData(pie);
