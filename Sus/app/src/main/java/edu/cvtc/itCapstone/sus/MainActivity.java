@@ -9,9 +9,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,14 +37,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private RecyclerView mRecyclerSubs;
     private LinearLayoutManager mSubLayoutManger;
     private SubscriptionRecyclerAdapter mSubRecyclerAdapter;
-
+    private String prefName = "spinner_value";
     // Member constants
     public static final String MY_PREFS = "MyPrefs";
     public static final int LOADER_SUBS = 0;
     public static final String CHANNEL_ID = "channel_payments";
 
+
     // Boolean to check if the 'onCreateLoader' method has run
     private boolean mIsCreated = false;
+
 
 
 

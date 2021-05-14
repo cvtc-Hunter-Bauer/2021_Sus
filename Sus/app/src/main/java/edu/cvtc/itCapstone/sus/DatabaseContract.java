@@ -17,6 +17,7 @@ public class DatabaseContract {
         public static final String COLUMN_COST = "cost";
         public static final String COLUMN_DATE = "date";
 
+
         public static final String INDEX1 = TABLE_NAME + "_index1";
         public static final String SQL_CREATE_INDEX1 = "CREATE INDEX " + INDEX1 + " ON " +
                 TABLE_NAME + "(" + COLUMN_NAME + ")";

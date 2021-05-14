@@ -20,14 +20,18 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.text.ParsePosition;
@@ -53,7 +57,10 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
     private int mSubId;
     private SubscriptionOpenHelper mDbOpenHelper;
     private SharedPreferences sharedPref;
-
+    private SharedPreferences sharedPref2;
+    private String prefName = "spinner_value";
+    int id=0;
+    int p;
 
     private final SubscriptionInfo mSub = new SubscriptionInfo(0, "", "", 0.0, "");
     private int mSubNamePosition;
@@ -78,7 +85,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
     private Cursor mCursor;
     private boolean mNewSub;
     private boolean mIsCancelling;
-
+    String chosenOption;
     @Override
     protected void onDestroy() {
         mDbOpenHelper.close();
@@ -104,6 +111,42 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         // mDatepicker = findViewById(R.id.sub_DatePicker);
         mDate = findViewById(R.id.text_date);
         mCheckbox = findViewById(R.id.cbx_notification);
+
+        // setting up the spinner with values
+        //get the spinner from the xml.
+        Spinner dropdown = findViewById(R.id.spinner1);
+        //create a list of items for the spinner.
+        String[] items = new String[]{"Monthly", "Quarterly", "Annually"};
+        //create an adapter to describe how the items are displayed
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        //set the spinners adapter to the previously created one.
+        dropdown.setAdapter(adapter);
+        sharedPref2 = getSharedPreferences(prefName, MODE_PRIVATE);
+        id = sharedPref2.getInt("last_val",0);
+        dropdown.setSelection(id);
+
+     dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                sharedPref2 = getSharedPreferences(prefName, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref2.edit();
+                //---save the values in the EditText view to preferences---
+
+                editor.putInt("last_val", position);
+                editor.commit();
+                chosenOption = dropdown.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+       });
+
+
         mDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,9 +196,11 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
 
             @Override
             public void onClick(View v) {
+
                 if (mName.getText().toString().trim().isEmpty() || mDescription.getText().toString().trim().isEmpty() || mCost.getText().toString().trim().isEmpty() || mDate.getText().toString().trim().isEmpty()) {
                     Toast.makeText(AddSub.this, "Please make sure the fields are filled", Toast.LENGTH_SHORT).show();
                 } else {
+
                     if (savedInstanceState == null) {
 
                         saveOriginalSub();
@@ -174,6 +219,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
                         editor.putInt(String.valueOf(mSubId), 0);
                         editor.apply();
                     }
+
                     startActivity(new Intent(AddSub.this, MainActivity.class));
                 }
             }
@@ -186,6 +232,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
             mDeleteButton.setVisibility(View.VISIBLE);
         }
     }
+
 
     // upper right back button will work as back and cancel
     @Override
@@ -292,6 +339,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         };
         task.loadInBackground();
     }
+
 
     private void showSub() {
 
