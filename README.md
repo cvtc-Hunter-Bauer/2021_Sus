@@ -19,13 +19,16 @@ Using the application
 On the navigation bar, click the subscriptions tab.
 Tap on the plus button in the bottom right to add a subscription.
 Fill in the subscription info, if you would like notifications for payments hit the checkbox and hit save. Your subscription should now be in the list!
+On the subscritions list. The top menu contains options for you to order the list in a way you like.
 Tap on the subscription to edit the information.
 tap on the subscription and hit delete to delete the subscription. 
 
 on the navigation bar, hit the upcoming payments tab to see a summary of your total spending and your upcoming payments.
 click on the upcoming payments to go directly to the edit subscription page.
 
+click on the graph page to have a visual representation of where the your money is being spent
+
 Knowns Bugs
 
-database is not presented properly on the graph where name and amount are not matching.
+spinner for payment being monthly quarterly or weekly affects all subscriptions 
 
