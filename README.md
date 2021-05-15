@@ -13,6 +13,7 @@ Install Sus apk on Android
 2. Go into downloads and select the Sus apk file, select install.
 3. Note you will need to enable the "Allow unknown sources" option within the settings of your device.
 
+View our Application website at https://cvtc-hunter-bauer.github.io/2021_Sus/
 
 Using the application
 
