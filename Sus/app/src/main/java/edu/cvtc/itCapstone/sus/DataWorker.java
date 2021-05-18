@@ -18,11 +18,12 @@ public class DataWorker {
         ContentValues contentValues = new ContentValues();
 
         // need this format for date values
+        // no longer used
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, ''yy");
         contentValues.put(SubscriptionInfoEntry.COLUMN_NAME, name);
         contentValues.put(SubscriptionInfoEntry.COLUMN_DESCRIPTION, description);
         contentValues.put(SubscriptionInfoEntry.COLUMN_COST, cost);
-        contentValues.put(SubscriptionInfoEntry.COLUMN_DATE, dateFormat.format(date));
+        contentValues.put(SubscriptionInfoEntry.COLUMN_DATE, date);
 
         long newRow = mDb.insert(SubscriptionInfoEntry.TABLE_NAME, null, contentValues);
 

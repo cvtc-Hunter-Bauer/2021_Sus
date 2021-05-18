@@ -38,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private LinearLayoutManager mSubLayoutManger;
     private SubscriptionRecyclerAdapter mSubRecyclerAdapter;
     private String prefName = "spinner_value";
+    private Boolean nameDescending = true;
+    private Boolean  priceDescending = false;
+    private Boolean dateDescending = false;
+
     // Member constants
     public static final String MY_PREFS = "MyPrefs";
     public static final int LOADER_SUBS = 0;
@@ -135,12 +139,49 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Order items
         switch (item.getItemId()) {
             case R.id.action_name:
-                orderSubscriptions(SubscriptionInfoEntry.COLUMN_NAME);
+
+                // Check to see if list needs to be descending
+                if (nameDescending) {
+                    orderSubscriptions(SubscriptionInfoEntry.COLUMN_NAME + " DESC");
+                    nameDescending = false;
+                } else {
+                    orderSubscriptions(SubscriptionInfoEntry.COLUMN_NAME);
+                    nameDescending = true;
+                }
+
+                priceDescending = false;
+                dateDescending = false;
+
                 return true;
             case R.id.action_price:
-                orderSubscriptions(SubscriptionInfoEntry.COLUMN_COST);
+
+                // Check to see if list needs to be descending
+                if (priceDescending) {
+                    orderSubscriptions(SubscriptionInfoEntry.COLUMN_COST + " DESC");
+                    priceDescending = false;
+                } else {
+                    orderSubscriptions(SubscriptionInfoEntry.COLUMN_COST);
+                    priceDescending = true;
+                }
+
+                nameDescending = false;
+                dateDescending = false;
+
                 return true;
             case R.id.action_date:
+
+                // Check to see if list needs to be descending
+                if (dateDescending) {
+                    orderSubscriptions(SubscriptionInfoEntry.COLUMN_DATE + " DESC");
+                    dateDescending = false;
+                } else {
+                    orderSubscriptions(SubscriptionInfoEntry.COLUMN_DATE);
+                    dateDescending = true;
+                }
+
+                nameDescending = false;
+                priceDescending = false;
+
                 orderSubscriptions(SubscriptionInfoEntry.COLUMN_DATE);
                 return true;
             default:
@@ -233,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return loader;
     }
 
-
+    // Orders
     public void orderSubscriptions(String subscriptionsOrderBy) {
         // Create new cursor loader
         CursorLoader loader = null;
