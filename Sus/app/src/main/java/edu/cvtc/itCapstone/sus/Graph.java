@@ -22,6 +22,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -63,14 +64,17 @@ public class Graph extends AppCompatActivity implements LoaderManager.LoaderCall
 
         // settings for pie chart and description
         pieChart.setUsePercentValues(false);
-        Description description = new Description();
-        description.setText("This your monthly spending");
-        pieChart.setDescription(description);
+
+        pieChart.setCenterText("This your monthly spending");
+        pieChart.animate();
 
         // using method that steps through database inserting into a PieEntry object
         PieDataSet pieDate = new PieDataSet(mDbOpenHelper.getValues(), "Subscriptions");
         PieData pie = new PieData(pieDate);
         pie.setValueTextSize(11f);
+
+        // setting format for the graph of 2 decimal places
+        pie.setValueFormatter(new DefaultValueFormatter(2));
         pieChart.setData(pie);
         // setting piechart color
         pieDate.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -78,7 +82,7 @@ public class Graph extends AppCompatActivity implements LoaderManager.LoaderCall
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_graph);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            switch (item.getItemId()) {
+           switch (item.getItemId()) {
                 case R.id.action_upcoming_payments:
                     Intent intent = new Intent(Graph.this, MainMenu.class);
                     overridePendingTransition(0, 0);
@@ -96,7 +100,10 @@ public class Graph extends AppCompatActivity implements LoaderManager.LoaderCall
 
                     break;                }
             return true;
+
         });
+
+
     }
 
 

@@ -30,6 +30,9 @@ public class SubscriptionOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SubscriptionInfoEntry.SQL_CREATE_TABLE);
         db.execSQL(SubscriptionInfoEntry.SQL_CREATE_INDEX1);
+
+        DataWorker dataWorker = new DataWorker(db);
+        dataWorker.insertSubs();
     }
 
     @Override

@@ -18,11 +18,11 @@ public class DataWorker {
         ContentValues contentValues = new ContentValues();
 
         // need this format for date values
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, ''yy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
         contentValues.put(SubscriptionInfoEntry.COLUMN_NAME, name);
         contentValues.put(SubscriptionInfoEntry.COLUMN_DESCRIPTION, description);
         contentValues.put(SubscriptionInfoEntry.COLUMN_COST, cost);
-        contentValues.put(SubscriptionInfoEntry.COLUMN_DATE, dateFormat.format(date));
+        contentValues.put(SubscriptionInfoEntry.COLUMN_DATE, date);
 
         long newRow = mDb.insert(SubscriptionInfoEntry.TABLE_NAME, null, contentValues);
 
@@ -30,6 +30,6 @@ public class DataWorker {
 
     public void insertSubs() {
         // Sample values for list
-        insertSub("test", "subscription test for the list", 15.00, "wed, Mar 3, '21");
+        insertSub("test", "subscription test for the list", 15.00, "2001-07-04");
     }
 }
