@@ -76,13 +76,12 @@
         android:id="@+id/monthly_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="monospace"
         android:text="@string/monthly_spending"
         android:textColor="#E3E8E5"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="@id/half_year_text"
         app:layout_constraintTop_toBottomOf="@id/spending_text" />
 
     <!-- Monthly spending amount   -->
@@ -103,6 +102,7 @@
         android:id="@+id/half_year_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="monospace"
         android:text="@string/six_month_spending"
@@ -135,7 +135,7 @@
         android:text="@string/yearly_spending"
         android:textColor="#E3E8E5"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="@id/half_year_text"
         app:layout_constraintTop_toBottomOf="@id/half_year_text" />
 
     <!-- Yearly Amount text   -->

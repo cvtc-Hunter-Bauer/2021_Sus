@@ -239,8 +239,8 @@ public class MainMenu extends AppCompatActivity implements LoaderManager.LoaderC
         cursor.close();
 
         // update each text view with the proper amount of spending
-        monthlyText.setText("$ " + spending);
-        sixMonthlyText.setText("$ " + (spending * 6));
-        yearlyText.setText("$ " + (spending * 12));
+        monthlyText.setText("$" + spending);
+        sixMonthlyText.setText("$" + (spending * 6));
+        yearlyText.setText("$" + (spending * 12));
     }
 }
