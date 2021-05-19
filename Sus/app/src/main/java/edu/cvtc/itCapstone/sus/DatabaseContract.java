@@ -24,6 +24,6 @@ public class DatabaseContract {
 
         public static final String SQL_CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " (" + _ID + " INTEGER PRIMARY KEY, "
                 + COLUMN_NAME + " TEXT NOT NULL, " + COLUMN_DESCRIPTION + " TEXT, "
-                + COLUMN_COST + " DOUBLE, " + COLUMN_DATE + " DATE)";
+                + COLUMN_COST + " DOUBLE, " + COLUMN_DATE + " TEXT)";
     }
 }

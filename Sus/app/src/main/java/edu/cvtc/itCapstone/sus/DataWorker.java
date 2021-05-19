@@ -18,7 +18,9 @@ public class DataWorker {
         ContentValues contentValues = new ContentValues();
 
         // need this format for date values
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy MM dd");
+
         contentValues.put(SubscriptionInfoEntry.COLUMN_NAME, name);
         contentValues.put(SubscriptionInfoEntry.COLUMN_DESCRIPTION, description);
         contentValues.put(SubscriptionInfoEntry.COLUMN_COST, cost);

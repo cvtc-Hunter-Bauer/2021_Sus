@@ -34,8 +34,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -82,6 +84,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
 
     private Button mButton;
     private Button mDeleteButton;
+    private Button mPayButton;
     private Cursor mCursor;
     private boolean mNewSub;
     private boolean mIsCancelling;
@@ -102,6 +105,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         mDbOpenHelper = new SubscriptionOpenHelper(this);
         mButton = findViewById(R.id.button_save);
         mDeleteButton = findViewById(R.id.button_delete);
+        mPayButton = findViewById(R.id.button_pay);
 
         // Calling before button press so The values can be populated
         readSateValues();
@@ -230,6 +234,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         if (!mNewSub) {
             LoaderManager.getInstance(this).initLoader(LOADER_SUB, null, this);
             mDeleteButton.setVisibility(View.VISIBLE);
+            mPayButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -518,9 +523,45 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC,displayDate ,pendingIntent);
     }
-        // On Delete button click
-        public void deleteSubscription(View view) {
-            deleteSubscriptionFromDatabase();
+    // On Delete button click
+    public void deleteSubscription(View view) {
+        deleteSubscriptionFromDatabase();
+    }
+
+    public void playSubscription(View view) throws ParseException {
+        int month;
+        String strMonth;
+        int day;
+        String strDay;
+
+        // Convert the date String into a Calender object
+        // First Create our calender
+        Calendar calendar = Calendar.getInstance();
+
+        // Second set the DateFormat
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        // Finally Parse the date
+        calendar.setTime(simpleDateFormat.parse(mDate.getText().toString()));
+
+        calendar.set(Calendar.MONTH,  calendar.get(Calendar.MONTH) + 1);
+
+        month = calendar.get(Calendar.MONTH) + 1;
+        if (month < 10) {
+            strMonth = "0" + month;
+        } else {
+            strMonth = String.valueOf(month);
         }
 
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        if (day < 10) {
+            strDay = "0" + day;
+        } else {
+            strDay = String.valueOf(day);
+        }
+
+        mDate.setText(calendar.get(Calendar.YEAR) + "-" + strMonth + "-" + strDay);
+
+        mButton.performClick();
     }
+}

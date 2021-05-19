@@ -208,7 +208,7 @@ public class MainMenu extends AppCompatActivity implements LoaderManager.LoaderC
     }
 
     public void displaySpending() {
-        int spending = 0;
+        double spending = 0;
 
         // Save a call to each one of our TextViews
         TextView monthlyText = findViewById(R.id.monthly_dollar_text);
@@ -232,7 +232,7 @@ public class MainMenu extends AppCompatActivity implements LoaderManager.LoaderC
 
         if(cursor.moveToFirst()) {
             for (int i = 0; i < cursor.getCount(); i++) {
-                spending += cursor.getInt(0);
+                spending += cursor.getDouble(0);
                 cursor.moveToNext();
             }
         }
