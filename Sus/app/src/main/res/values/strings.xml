@@ -35,4 +35,5 @@
     <string name="order_by_name">Order by Name</string>
     <string name="order_by_price">Order by Price</string>
     <string name="order_by_date">Order by Date</string>
+    <string name="pay">PAY</string>
 </resources>

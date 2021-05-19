@@ -126,4 +126,17 @@
         app:layout_constraintEnd_toEndOf="@+id/text_date"
         app:layout_constraintStart_toStartOf="@+id/text_date"
         app:layout_constraintTop_toBottomOf="@+id/button_save" />
+
+    <Button
+        android:id="@+id/button_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/pay"
+        android:visibility="invisible"
+        android:onClick="playSubscription"
+        app:layout_constraintEnd_toEndOf="@+id/cbx_notification"
+        app:layout_constraintStart_toEndOf="@+id/text_date"
+        app:layout_constraintTop_toBottomOf="@+id/cbx_notification" />
 </androidx.constraintlayout.widget.ConstraintLayout>
