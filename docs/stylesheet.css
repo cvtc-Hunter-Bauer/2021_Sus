@@ -13,11 +13,10 @@ body {
 
 button {
   display: inline-block;
-  padding: 15px;
-  margin: 10px;
+  padding: 10px;
   position: absolute;
- 
 }
+
 #wrapper {
   margin-left: auto;
   margin-right: auto;
@@ -50,16 +49,16 @@ button {
 img {
 
   position: absolute;
-  right: 300px;
-  top: 150px;
-  max-width: 100%;
-  display: block;
+  right: 12%;
+  top: 100px;
+  width: 13%;
 }
 
 
 form {
   padding: 1.5em;
 }
+
 header {
   
 }
