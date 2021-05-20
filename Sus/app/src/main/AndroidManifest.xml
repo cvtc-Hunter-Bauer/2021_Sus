@@ -17,9 +17,9 @@
         android:theme="@style/Theme.Sus">
         <activity android:name=".Graph"></activity>
 
-        <activity android:name=".MainMenu" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".AddSub" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainMenu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
