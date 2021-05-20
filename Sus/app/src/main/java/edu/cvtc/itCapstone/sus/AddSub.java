@@ -116,39 +116,7 @@ public class AddSub extends AppCompatActivity implements LoaderManager.LoaderCal
         mDate = findViewById(R.id.text_date);
         mCheckbox = findViewById(R.id.cbx_notification);
 
-        // setting up the spinner with values
-        //get the spinner from the xml.
-        Spinner dropdown = findViewById(R.id.spinner1);
-        //create a list of items for the spinner.
-        String[] items = new String[]{"Monthly", "Quarterly", "Annually"};
-        //create an adapter to describe how the items are displayed
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        //set the spinners adapter to the previously created one.
-        dropdown.setAdapter(adapter);
-        sharedPref2 = getSharedPreferences(prefName, MODE_PRIVATE);
-        id = sharedPref2.getInt("last_val",0);
-        dropdown.setSelection(id);
-
-     dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                sharedPref2 = getSharedPreferences(prefName, MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref2.edit();
-                //---save the values in the EditText view to preferences---
-
-                editor.putInt("last_val", position);
-                editor.commit();
-                chosenOption = dropdown.getSelectedItem().toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-       });
 
 
         mDate.setOnClickListener(new View.OnClickListener() {

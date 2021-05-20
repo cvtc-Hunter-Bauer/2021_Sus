@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.cvtc.itCapstone.sus">
 
+    <permission android:name="edu_cvtc_itCapstone_sus"
+                android:protectionLevel="signature"></permission>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-feature android:name="android.hardware.type.watch" />
@@ -25,6 +27,8 @@
             </intent-filter>
         </activity>
         <receiver android:name=".NotificationHandler"/>
+
+
     </application>
 
 </manifest>

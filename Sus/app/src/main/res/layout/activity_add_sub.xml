@@ -61,15 +61,6 @@
         app:layout_constraintStart_toStartOf="@+id/text_description"
         app:layout_constraintTop_toBottomOf="@+id/text_description" />
 
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="175dp"
-        android:layout_height="52dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_cost"
-        app:layout_constraintTop_toBottomOf="@+id/text_description" />
 
     <!-- Subscription date text entry   -->
     <EditText
